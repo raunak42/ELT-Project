@@ -21,7 +21,7 @@ model BlankOrderIdTransaction {
   Payment_Date     String?
   Source           String?
   uploadSessionId  Int?
-  UploadSession    UploadSession? @relation(fields: [uploadSessionId], references: [id])
+  UploadSession    UploadSession? @relation(fields: [uploadSessionId], references: [id], onDelete: Cascade)
 }
 
 model BlankTransactionSummary {
@@ -29,7 +29,7 @@ model BlankTransactionSummary {
   P_Description   String
   SumNetAmt       String
   uploadSessionId Int?
-  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id])
+  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id], onDelete: Cascade)
 }
 
 model CategorizedTransaction {
@@ -43,7 +43,7 @@ model CategorizedTransaction {
   Shipment_Net_Amt     String?
   Category             String
   uploadSessionId      Int?
-  UploadSession        UploadSession? @relation(fields: [uploadSessionId], references: [id])
+  UploadSession        UploadSession? @relation(fields: [uploadSessionId], references: [id], onDelete: Cascade)
 }
 
 model TransactionSummary {
@@ -51,7 +51,7 @@ model TransactionSummary {
   Category        String
   Count           Int
   uploadSessionId Int?
-  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id])
+  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id], onDelete: Cascade)
 }
 
 model UploadSession {
