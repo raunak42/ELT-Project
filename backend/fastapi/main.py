@@ -1,14 +1,19 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from helpers import greet, process_and_merge_datasets, filter_and_summarize, group_and_categorize_by_order_id,create_markings
 import logging
-from typing import Optional
-from helpers import greet, process_and_merge_datasets
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__) 
 
+logging.basicConfig(
+    level=logging.INFO,  # Set logging level to INFO or DEBUG
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # Log format
+    handlers=[
+        logging.StreamHandler(),  # Log to console
+        logging.FileHandler("app.log")  # Log to file 'app.log'
+    ]
+)
 app = FastAPI()
 
 app.add_middleware(
@@ -21,7 +26,7 @@ app.add_middleware(
 
 @app.get("/")
 def health_check():
-    return 'Health check complete for'
+    return 'Health check complete'
 
 class User(BaseModel):
     user_name: str
@@ -36,6 +41,10 @@ async def upload_files(
     mtrFile: UploadFile = File(...),
     prsFile: UploadFile = File(...)
 ):
-   await process_and_merge_datasets(mtrFile, prsFile)
-
-   return {"message": "Files processed and saved successfully."}
+    merged_df = await process_and_merge_datasets(mtrFile, prsFile)
+    summary = filter_and_summarize(merged_df)
+    grouped = group_and_categorize_by_order_id(merged_df)
+    categorized = create_markings(grouped)
+    
+    
+    return {"message": "Files processed and saved successfully."}   
