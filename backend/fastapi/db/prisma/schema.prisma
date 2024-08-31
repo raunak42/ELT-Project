@@ -1,8 +1,10 @@
 generator client {
-  provider = "prisma-client-py"
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = "5"
 }
 
-datasource db {
+datasource db { 
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
@@ -12,44 +14,44 @@ model BlankOrderIdTransaction {
   Order_Id         String?
   Transaction_Type String?
   Payment_Type     String?
-  Invoice_Amt      Float?
-  Net_Amt          Float?
+  Invoice_Amt      String?
+  Net_Amt          String?
   P_Description    String?
   Order_Date       String?
   Payment_Date     String?
   Source           String?
-  UploadSession    UploadSession? @relation(fields: [uploadSessionId], references: [id])
   uploadSessionId  Int?
+  UploadSession    UploadSession? @relation(fields: [uploadSessionId], references: [id])
 }
 
 model BlankTransactionSummary {
   id              Int            @id @default(autoincrement())
   P_Description   String
-  SumNetAmt       Float
-  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id])
+  SumNetAmt       String
   uploadSessionId Int?
+  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id])
 }
 
 model CategorizedTransaction {
   id                   Int            @id @default(autoincrement())
   Order_Id             String?
-  Payment_Invoive_Amt  Float?
-  Return_Invoive_Amt   Float?
-  Shipment_Invoive_Amt Float?
-  Payment_Net_Amt      Float?
-  Return_Net_Amt       Float?
-  Shipment_Net_Amt     Float?
+  Payment_Invoice_Amt  String?
+  Return_Invoice_Amt   String?
+  Shipment_Invoice_Amt String?
+  Payment_Net_Amt      String?
+  Return_Net_Amt       String?
+  Shipment_Net_Amt     String?
   Category             String
-  UploadSession        UploadSession? @relation(fields: [uploadSessionId], references: [id])
   uploadSessionId      Int?
+  UploadSession        UploadSession? @relation(fields: [uploadSessionId], references: [id])
 }
 
 model TransactionSummary {
   id              Int            @id @default(autoincrement())
   Category        String
   Count           Int
-  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id])
   uploadSessionId Int?
+  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id])
 }
 
 model UploadSession {
