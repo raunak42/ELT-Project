@@ -3,9 +3,18 @@ import pandas as pd
 import tempfile
 import os
 import logging
+import json
 
 logger = logging.getLogger(__name__) 
 
+logging.basicConfig(
+    level=logging.INFO,  # Set logging level to INFO or DEBUG
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # Log format
+    handlers=[
+        logging.StreamHandler(),  # Log to console
+        logging.FileHandler("app.log")  # Log to file 'app.log'
+    ]
+)
 def greet():
     return "HELLO SUCKER"
 
@@ -27,8 +36,7 @@ async def process_and_merge_datasets(mtrFile: UploadFile, prsFile: UploadFile):
     
     merged_df = merge_datasets(df_processed_mtr, df_processed_prs)
     
-    os.makedirs('processed_data', exist_ok=True)
-    merged_df.to_excel('processed_data/merged_dataset.xlsx', index=False)
+
     
     return merged_df
 
@@ -83,23 +91,19 @@ def merge_datasets(df_processed_mtr, df_processed_prs):
     return merged_df
 
 def filter_and_summarize(merged_df):
-    empty_order_id_df = merged_df[merged_df['Order Id'].isna() | (merged_df['Order Id'] == '')]
-    empty_order_id_df.to_excel(os.path.join('.','processed_data','Blank_Order_Id_Transactions.xlsx'),index=False)
+    blank_transaction_df = merged_df[merged_df['Order Id'].isna() | (merged_df['Order Id'] == '')]
 
-    summary = empty_order_id_df.groupby('P_Description')['Net Amount'].sum().reset_index()
-    summary = summary.rename(columns={'Net Amount': 'SUM of Net Amount'})
-    summary.to_excel(os.path.join('.','processed_data','Blank_Transaction_Summary.xlsx'),index=False)
-    return summary
+
+    blank_transaction_summary_df = blank_transaction_df.groupby('P_Description')['Net Amount'].sum().reset_index()
+    blank_transaction_summary_df = blank_transaction_summary_df.rename(columns={'Net Amount': 'SUM of Net Amount'})
+    return blank_transaction_df, blank_transaction_summary_df
 
 def group_and_categorize_by_order_id(merged_df):
-    
     # Group by Order Id and Transaction Type
     grouped = merged_df.groupby(['Order Id', 'Transaction Type']).agg({
         'Invoice Amount': 'sum',
         'Net Amount': 'sum'
     }).reset_index()
-    grouped.to_excel(os.path.join('.','processed_data','Transaction_Record_v1.xlsx'),index=False)
-
     
     # Pivot the table to get Transaction Types as columns
     pivoted = grouped.pivot(index='Order Id', 
@@ -110,8 +114,6 @@ def group_and_categorize_by_order_id(merged_df):
     # Reset index to make Order Id a column again
     pivoted = pivoted.reset_index()
     
-
-    pivoted.to_excel(os.path.join('.','processed_data','Transaction_Record_v2.xlsx'), index=False)
     return pivoted
 
 def create_markings(grouped):
@@ -143,17 +145,15 @@ def create_markings(grouped):
                 (grouped['Shipment_Invoice Amount'].notna()) & 
                 (grouped['Payment_Net Amount'].isna()), 'Category'] = 'Payment Pending'
     
-    grouped.to_excel(os.path.join('.','processed_data','Categorized_Transaction_Record.xlsx'),index = False)
     
     value_counts = grouped['Category'].value_counts()
     print(value_counts)
     
-    value_counts_df = value_counts.reset_index()
-    value_counts_df.columns = ['Category','Count']
+    grouped_value_counts_df = value_counts.reset_index()
+    grouped_value_counts_df.columns = ['Category','Count']
     
-    total_row = pd.DataFrame({'Category': ['TOTAL'], 'Count': [value_counts_df['Count'].sum()]})
-    value_counts_df = pd.concat([value_counts_df, total_row], ignore_index=True)  
+    total_row = pd.DataFrame({'Category': ['TOTAL'], 'Count': [grouped_value_counts_df['Count'].sum()]})
+    grouped_value_counts_df = pd.concat([grouped_value_counts_df, total_row], ignore_index=True)  
     
-    value_counts_df.to_excel(os.path.join('.','processed_data','Transaction_Summary.xlsx'),index = False)
 
-    return grouped
+    return grouped,grouped_value_counts_df
