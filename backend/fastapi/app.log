@@ -232,3 +232,320 @@
 
 [5 rows x 7 columns]
 2024-08-31 17:32:04,973 - main - INFO - {'Order Id': '171-0001525-2076671', 'Payment_Invoice Amount': 0.0, 'Return_Invoice Amount': nan, 'Shipment_Invoice Amount': nan, 'Payment_Net Amount': 289.98, 'Return_Net Amount': nan, 'Shipment_Net Amount': nan, 'Category': 'Order Not Applicable but Payment Received'}
+2024-08-31 18:48:23,100 - httpx - INFO - HTTP Request: GET http://localhost:51773/status "HTTP/1.1 200 OK"
+2024-08-31 18:48:24,307 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 18:48:24,436 - httpx - INFO - HTTP Request: POST http://localhost:51773/transaction/start "HTTP/1.1 200 OK"
+2024-08-31 18:48:24,535 - httpx - INFO - HTTP Request: POST http://localhost:51773/ "HTTP/1.1 200 OK"
+2024-08-31 18:48:24,582 - httpx - INFO - HTTP Request: POST http://localhost:51773/transaction/cm0i64twj0000o494x63vczpz/rollback "HTTP/1.1 200 OK"
+2024-08-31 18:48:24,583 - main - ERROR - Error processing files: cannot convert float NaN to integer
+2024-08-31 18:49:32,776 - httpx - INFO - HTTP Request: GET http://localhost:59015/status "HTTP/1.1 200 OK"
+2024-08-31 18:49:33,764 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 18:49:33,871 - httpx - INFO - HTTP Request: POST http://localhost:59015/transaction/start "HTTP/1.1 200 OK"
+2024-08-31 18:49:33,969 - httpx - INFO - HTTP Request: POST http://localhost:59015/ "HTTP/1.1 200 OK"
+2024-08-31 18:49:34,041 - httpx - INFO - HTTP Request: POST http://localhost:59015/transaction/cm0i66bhq00009rjw9dwiikk3/rollback "HTTP/1.1 200 OK"
+2024-08-31 18:49:34,042 - main - ERROR - Error processing files: cannot convert float NaN to integer
+2024-08-31 18:54:30,914 - httpx - INFO - HTTP Request: GET http://localhost:60771/status "HTTP/1.1 200 OK"
+2024-08-31 18:54:32,024 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 18:54:32,146 - httpx - INFO - HTTP Request: POST http://localhost:60771/transaction/start "HTTP/1.1 200 OK"
+2024-08-31 18:54:32,233 - httpx - INFO - HTTP Request: POST http://localhost:60771/ "HTTP/1.1 200 OK"
+2024-08-31 18:54:32,296 - httpx - INFO - HTTP Request: POST http://localhost:60771/transaction/cm0i6cpno0000233dz8zyvuwd/rollback "HTTP/1.1 200 OK"
+2024-08-31 18:54:32,296 - main - ERROR - Error processing files: cannot convert float NaN to integer
+2024-08-31 19:00:21,159 - httpx - INFO - HTTP Request: GET http://localhost:45767/status "HTTP/1.1 200 OK"
+2024-08-31 19:00:22,242 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 19:00:22,367 - httpx - INFO - HTTP Request: POST http://localhost:45767/transaction/start "HTTP/1.1 200 OK"
+2024-08-31 19:00:22,451 - httpx - INFO - HTTP Request: POST http://localhost:45767/ "HTTP/1.1 200 OK"
+2024-08-31 19:00:22,461 - httpx - INFO - HTTP Request: POST http://localhost:45767/ "HTTP/1.1 200 OK"
+2024-08-31 19:00:22,532 - httpx - INFO - HTTP Request: POST http://localhost:45767/transaction/cm0i6k7vd0000i81iqj1t3z5o/rollback "HTTP/1.1 200 OK"
+2024-08-31 19:00:22,533 - main - ERROR - Error processing files: Unable to match input value to any allowed input type for the field. Parse errors: [Invalid argument type. `data` should be of any of the following types: `BlankOrderIdTransactionCreateManyInput`, Unable to match input value to any allowed input type for the field. Parse errors: [Invalid argument type. `Order_Id` should be of any of the following types: `String`, Invalid argument type. `Order_Id` should be of any of the following types: `Null`]]
+2024-08-31 19:04:30,555 - httpx - INFO - HTTP Request: GET http://localhost:58315/status "HTTP/1.1 200 OK"
+2024-08-31 19:04:31,603 - main - ERROR - Error processing files: Must specify a fill 'value' or 'method'.
+2024-08-31 19:08:32,282 - httpx - INFO - HTTP Request: GET http://localhost:54103/status "HTTP/1.1 200 OK"
+2024-08-31 19:08:33,488 - main - ERROR - Error processing files: 'Payment_Invoice Amount'
+2024-08-31 19:13:25,035 - httpx - INFO - HTTP Request: GET http://localhost:33537/status "HTTP/1.1 200 OK"
+2024-08-31 19:13:26,162 - main - ERROR - Error processing files: 'Payment_Invoice Amount'
+2024-08-31 19:21:18,547 - httpx - INFO - HTTP Request: GET http://localhost:54283/status "HTTP/1.1 200 OK"
+2024-08-31 19:21:19,586 - main - INFO - Merged DataFrame columns: Index(['Order Id', 'Transaction Type', 'Payment Type', 'Invoice Amount',
+       'Net Amount', 'P_Description', 'Order Date', 'Payment Date', 'Source'],
+      dtype='object')
+2024-08-31 19:21:19,587 - main - INFO - Merged DataFrame dtypes: Order Id                    object
+Transaction Type            object
+Payment Type                object
+Invoice Amount             float64
+Net Amount                 float64
+P_Description               object
+Order Date          datetime64[ns]
+Payment Date                object
+Source                      object
+dtype: object
+2024-08-31 19:21:19,607 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 19:21:19,751 - httpx - INFO - HTTP Request: POST http://localhost:54283/transaction/start "HTTP/1.1 200 OK"
+2024-08-31 19:21:19,906 - httpx - INFO - HTTP Request: POST http://localhost:54283/ "HTTP/1.1 200 OK"
+2024-08-31 19:21:20,110 - httpx - INFO - HTTP Request: POST http://localhost:54283/ "HTTP/1.1 200 OK"
+2024-08-31 19:21:20,269 - httpx - INFO - HTTP Request: POST http://localhost:54283/ "HTTP/1.1 200 OK"
+2024-08-31 19:21:20,811 - httpx - INFO - HTTP Request: POST http://localhost:54283/ "HTTP/1.1 200 OK"
+2024-08-31 19:21:20,869 - httpx - INFO - HTTP Request: POST http://localhost:54283/transaction/cm0i7b61t0000mol3ivummp42/rollback "HTTP/1.1 200 OK"
+2024-08-31 19:21:20,871 - main - ERROR - Error processing files: Could not find field at `createManyCategorizedTransaction.data.Payment_Invoice_Amt`
+Traceback (most recent call last):
+  File "/home/raunak/repos/projects/ELT-Project/backend/fastapi/main.py", line 129, in upload_files
+    await transaction.categorizedtransaction.create_many(
+  File "/home/raunak/.local/lib/python3.10/site-packages/prisma/actions.py", line 2293, in create_many
+    resp = await self._client._execute(
+  File "/home/raunak/.local/lib/python3.10/site-packages/prisma/_base_client.py", line 543, in _execute
+    return await self._engine.query(builder.build(), tx_id=self._tx_id)
+  File "/home/raunak/.local/lib/python3.10/site-packages/prisma/engine/_query.py", line 402, in query
+    return await self.request(
+  File "/home/raunak/.local/lib/python3.10/site-packages/prisma/engine/_http.py", line 233, in request
+    return self._process_response_data(data=data, response=response)
+  File "/home/raunak/.local/lib/python3.10/site-packages/prisma/engine/_http.py", line 87, in _process_response_data
+    return utils.handle_response_errors(response, errors_data)
+  File "/home/raunak/.local/lib/python3.10/site-packages/prisma/engine/utils.py", line 175, in handle_response_errors
+    raise exc(error)
+prisma.errors.FieldNotFoundError: Could not find field at `createManyCategorizedTransaction.data.Payment_Invoice_Amt`
+2024-08-31 19:27:06,442 - httpx - INFO - HTTP Request: GET http://localhost:52303/status "HTTP/1.1 200 OK"
+2024-08-31 19:27:07,505 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 19:27:07,747 - httpx - INFO - HTTP Request: POST http://localhost:52303/ "HTTP/1.1 200 OK"
+2024-08-31 19:27:07,750 - httpx - INFO - HTTP Request: POST http://localhost:52303/ "HTTP/1.1 200 OK"
+2024-08-31 19:27:07,751 - main - ERROR - Error occurred while saving data: Unable to match input value to any allowed input type for the field. Parse errors: [Unable to match input value to any allowed input type for the field. Parse errors: [Invalid argument type. `Order_Id` should be of any of the following types: `String`, Invalid argument type. `Order_Id` should be of any of the following types: `Null`], Unable to match input value to any allowed input type for the field. Parse errors: [Invalid argument type. `Order_Id` should be of any of the following types: `String`, Invalid argument type. `Order_Id` should be of any of the following types: `Null`]]
+2024-08-31 19:29:10,191 - httpx - INFO - HTTP Request: GET http://localhost:36227/status "HTTP/1.1 200 OK"
+2024-08-31 19:29:11,342 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 19:29:11,635 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:11,754 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:11,833 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:11,916 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:11,995 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,086 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,156 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,234 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,286 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,388 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,444 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,518 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,588 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,675 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,748 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,802 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,845 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:12,923 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,033 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,082 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,154 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,234 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,308 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,355 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,436 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,511 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,555 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,747 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,834 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,914 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:13,978 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,052 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,109 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,165 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,234 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,294 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,358 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,434 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,514 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,613 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,706 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,809 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:14,917 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,022 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,114 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,216 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,314 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,393 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,472 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,594 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,655 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,718 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,763 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,834 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,914 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:15,993 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,040 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,148 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,235 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,295 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,350 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,434 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,495 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,554 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,627 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,682 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:16,760 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,229 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,394 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,444 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,516 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,641 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,714 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,794 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,846 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,913 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:17,964 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,036 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,118 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,195 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,395 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,493 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,558 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,636 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,700 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,797 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,876 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,938 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:18,994 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,075 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,147 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,201 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,256 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,323 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,397 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,455 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,550 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,636 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,715 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,794 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,847 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:19,957 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,067 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,214 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,356 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,433 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,510 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,616 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,683 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,754 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,804 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,874 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,925 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:20,994 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,042 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,117 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,177 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,232 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,283 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,356 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,415 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,466 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,555 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,606 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,674 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,771 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,834 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,915 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:21,994 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,074 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,165 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,250 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,315 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,364 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,434 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,515 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,596 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,675 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,714 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,795 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,874 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:22,954 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:23,003 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:23,069 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:23,204 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:23,338 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:23,439 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:23,512 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:23,564 - httpx - INFO - HTTP Request: POST http://localhost:36227/ "HTTP/1.1 200 OK"
+2024-08-31 19:29:23,621 - main - ERROR - Error occurred while saving data: Server disconnected without sending a response.
+2024-08-31 19:32:50,658 - httpx - INFO - HTTP Request: GET http://localhost:51383/status "HTTP/1.1 200 OK"
+2024-08-31 19:32:51,746 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 19:32:51,878 - httpx - INFO - HTTP Request: POST http://localhost:51383/ "HTTP/1.1 200 OK"
+2024-08-31 19:32:52,308 - httpx - INFO - HTTP Request: POST http://localhost:51383/ "HTTP/1.1 200 OK"
+2024-08-31 19:32:52,556 - httpx - INFO - HTTP Request: POST http://localhost:51383/ "HTTP/1.1 200 OK"
+2024-08-31 19:32:53,087 - httpx - INFO - HTTP Request: POST http://localhost:51383/ "HTTP/1.1 200 OK"
+2024-08-31 19:32:53,088 - main - ERROR - Error occurred while saving data: Could not find field at `createManyCategorizedTransaction.data.Payment_Invoive_Amt`
+2024-08-31 19:34:04,962 - httpx - INFO - HTTP Request: GET http://localhost:47781/status "HTTP/1.1 200 OK"
+2024-08-31 19:34:06,187 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 19:34:06,318 - httpx - INFO - HTTP Request: POST http://localhost:47781/ "HTTP/1.1 200 OK"
+2024-08-31 19:34:06,678 - httpx - INFO - HTTP Request: POST http://localhost:47781/ "HTTP/1.1 200 OK"
+2024-08-31 19:34:06,918 - httpx - INFO - HTTP Request: POST http://localhost:47781/ "HTTP/1.1 200 OK"
+2024-08-31 19:34:10,249 - httpx - INFO - HTTP Request: POST http://localhost:47781/ "HTTP/1.1 200 OK"
+2024-08-31 19:34:10,519 - httpx - INFO - HTTP Request: POST http://localhost:47781/ "HTTP/1.1 200 OK"
+2024-08-31 19:37:19,806 - httpx - INFO - HTTP Request: GET http://localhost:50771/status "HTTP/1.1 200 OK"
+2024-08-31 19:37:21,005 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 19:37:21,171 - httpx - INFO - HTTP Request: POST http://localhost:50771/ "HTTP/1.1 200 OK"
+2024-08-31 19:37:21,576 - httpx - INFO - HTTP Request: POST http://localhost:50771/ "HTTP/1.1 200 OK"
+2024-08-31 19:37:21,960 - httpx - INFO - HTTP Request: POST http://localhost:50771/ "HTTP/1.1 200 OK"
+2024-08-31 19:37:25,159 - httpx - INFO - HTTP Request: POST http://localhost:50771/ "HTTP/1.1 200 OK"
+2024-08-31 19:37:25,361 - httpx - INFO - HTTP Request: POST http://localhost:50771/ "HTTP/1.1 200 OK"
