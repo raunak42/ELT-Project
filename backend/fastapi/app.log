@@ -1,0 +1,39 @@
+2024-08-31 14:05:26,743 - main - INFO - This is a log.
+2024-08-31 14:05:55,829 - main - INFO -    index                  r_O       r_T      n_I     e_N
+0      0  171-0001525-2076671   Payment     0.00  289.98
+1      1  171-0018189-1438840   Payment     0.00  352.90
+2      2  171-0018189-1438840  Shipment   510.00    0.00
+3      3  171-0019571-1451585  Shipment  1448.40    0.00
+4      4  171-0050635-2555963  Shipment   639.21    0.00
+2024-08-31 14:08:55,341 - main - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 14:11:45,092 - main - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 14:12:18,328 - helpers - INFO -               Order Id  Payment_Invoice Amount  ...  Return_Net Amount  Shipment_Net Amount
+0  171-0001525-2076671                     0.0  ...                NaN                  NaN
+1  171-0018189-1438840                     0.0  ...                NaN                  0.0
+2  171-0019571-1451585                     NaN  ...                NaN                  0.0
+3  171-0050635-2555963                     NaN  ...                NaN                  0.0
+4  171-0055533-2415626                     0.0  ...                0.0                  0.0
+
+[5 rows x 7 columns]
+2024-08-31 14:12:18,795 - main - INFO -               Order Id  Payment_Invoice Amount  ...  Shipment_Net Amount                                   Category
+0  171-0001525-2076671                     0.0  ...                  NaN  Order Not Applicable but Payment Received
+1  171-0018189-1438840                     0.0  ...                  0.0                   Order & Payment Received
+2  171-0019571-1451585                     NaN  ...                  0.0                            Payment Pending
+3  171-0050635-2555963                     NaN  ...                  0.0                            Payment Pending
+4  171-0055533-2415626                     0.0  ...                  0.0                   Order & Payment Received
+
+[5 rows x 8 columns]

@@ -36,5 +36,5 @@ yarn-error.log*
 next-env.d.ts
 /backend/.venv
 
-backend/fastapi/uploads
+backend/fastapi/processed_data
 backend/fastapi/__*
