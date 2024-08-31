@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model BlankOrderIdTransaction {
+  id               Int            @id @default(autoincrement())
+  Order_Id         String?
+  Transaction_Type String?
+  Payment_Type     String?
+  Invoice_Amt      Float?
+  Net_Amt          Float?
+  P_Description    String?
+  Order_Date       String?
+  Payment_Date     String?
+  Source           String?
+  UploadSession    UploadSession? @relation(fields: [uploadSessionId], references: [id])
+  uploadSessionId  Int?
+}
+
+model BlankTransactionSummary {
+  id              Int            @id @default(autoincrement())
+  P_Description   String
+  SumNetAmt       Float
+  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id])
+  uploadSessionId Int?
+}
+
+model CategorizedTransaction {
+  id                   Int            @id @default(autoincrement())
+  Order_Id             String?
+  Payment_Invoive_Amt  Float?
+  Return_Invoive_Amt   Float?
+  Shipment_Invoive_Amt Float?
+  Payment_Net_Amt      Float?
+  Return_Net_Amt       Float?
+  Shipment_Net_Amt     Float?
+  Category             String
+  UploadSession        UploadSession? @relation(fields: [uploadSessionId], references: [id])
+  uploadSessionId      Int?
+}
+
+model TransactionSummary {
+  id              Int            @id @default(autoincrement())
+  Category        String
+  Count           Int
+  UploadSession   UploadSession? @relation(fields: [uploadSessionId], references: [id])
+  uploadSessionId Int?
+}
+
+model UploadSession {
+  id                        Int                       @id @default(autoincrement())
+  BlankOrderIdTransactions  BlankOrderIdTransaction[]
+  BlankTransactionSummaries BlankTransactionSummary[]
+  CategorizedTransactions   CategorizedTransaction[]
+  TransactionSummaries      TransactionSummary[]
+}
