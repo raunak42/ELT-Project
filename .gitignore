@@ -39,3 +39,5 @@ next-env.d.ts
 backend/fastapi/processed_data
 backend/fastapi/__*
 backend/fastapi/.env
+backend/fastapi/app.log
+
