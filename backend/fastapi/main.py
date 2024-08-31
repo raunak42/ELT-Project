@@ -135,6 +135,93 @@ async def upload_files(
     
     finally:
         await prisma.disconnect()
+        
+class Upload_Session(BaseModel):
+    id: int
+        
+@app.post("/get_processed_data")
+async def get_processed_data(upload_session:Upload_Session):
+    prisma = Prisma()
+    await prisma.connect()
+    
+    upload_session_id = upload_session.id
+    
+    try:
+        removal_transactions = await prisma.categorizedtransaction.find_many(
+            where={
+                "uploadSessionId": upload_session_id,
+                "Category":"Removal Order IDs"
+            }
+        ) 
+        
+        return_transactions = await prisma.categorizedtransaction.find_many(
+            where={
+                "uploadSessionId": upload_session_id,
+                "Category":"Return"
+            }
+        )
+                
+        negative_transactions = await prisma.categorizedtransaction.find_many(
+            where={
+                "uploadSessionId": upload_session_id,
+                "Category":"Negative Payout"
+            }
+        )
+        
+        opr_transactions = await prisma.categorizedtransaction.find_many(
+            where={
+                "uploadSessionId": upload_session_id,
+                "Category":"Order & Payment Received"
+            }
+        )
+        
+        ona_transactions = await prisma.categorizedtransaction.find_many(
+            where={
+                "uploadSessionId": upload_session_id,
+                "Category":"Order Not Applicable but Payment Received"
+            }
+        )
+        
+        pending_transactions = await prisma.categorizedtransaction.find_many(
+            where={
+                "uploadSessionId": upload_session_id,
+                "Category":"Payment Pending"
+            }
+        )
+        
+        blank_summaries = await prisma.blanktransactionsummary.find_many(
+            where={
+                "uploadSessionId": upload_session_id,
+            }
+        )
+        transaction_summaries = await prisma.transactionsummary.find_many(
+            where={
+                "uploadSessionId": upload_session_id,
+            }
+        )
+        
+       
+        
+        return {
+                "removal_transactions": removal_transactions,
+                "return_transactions": return_transactions,
+                "negative_transactions": negative_transactions,
+                "opr_transactions": opr_transactions,
+                "ona_transactions": ona_transactions,
+                "pending_transactions": pending_transactions,
+                "blank_summaries": blank_summaries,
+                "transaction_summaries": transaction_summaries
+            }
+        
+
+        
+    except Exception as e:
+        logger.error(f"Error occurred while saving data: {str(e)}")
+        return {"error": "An error occurred while processing and saving the data."}
+    
+    finally:
+        await prisma.disconnect()
+        
 
 if __name__ == "__main__":
     import uvicorn
