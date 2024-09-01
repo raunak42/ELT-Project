@@ -13,6 +13,7 @@ echo "Installing python dependencies..."
 cd fastapi
 pip install -r requirements.txt
 pip cache purge
+python3 -m prisma generate
 pm2 delete fastapi-server || true
 pm2 start main.py --name fastapi-server --interpreter python3
 
