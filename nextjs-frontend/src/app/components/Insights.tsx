@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 interface InsightsProps {
@@ -15,11 +16,15 @@ interface InsightsResType {
   pending_transactions: any[];
   blank_summaries: any[];
   transaction_summaries: any[];
+  grouped_transactions: any[];
 }
 
 export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
   const [data, setData] = useState<InsightsResType>();
+  const [showSpinner, setShowSpinner] = useState<boolean>(false);
+
   const handleClick = async () => {
+    setShowSpinner(true)
     try {
       const res = await fetch("http://localhost:8000/get_processed_data", {
         method: "POST",
@@ -35,40 +40,96 @@ export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
       }
 
       const data: InsightsResType = await res.json();
+      setShowSpinner(false)
       setData(data);
-      console.log(data.blank_summaries);
-      console.log(data.transaction_summaries);
-      // Process your data here
+      console.log(data);
     } catch (error) {
       console.error("An error occurred while fetching data:", error);
-      // Handle the error appropriately
     }
   };
 
+  const labels = [
+    { label: "Order & Payment Received", value: data?.opr_transactions.length },
+    { label: "Payment Pending", value: data?.pending_transactions.length },
+    { label: "Return", value: data?.return_transactions.length },
+    { label: "Negative Payout", value: data?.negative_transactions.length },
+    {
+      label: "Order Not Applicable but Payment Received",
+      value: data?.ona_transactions.length,
+    },
+  ];
+
   return (
-    <div>
+    <div className="w-full  flex flex-col items-center  justify-center ">
       <button
         disabled={!uploadSessionId}
         onClick={handleClick}
-        className={`bg-black text-white font-semibold rounded-lg w-[200px] h-[40px] disabled:cursor-not-allowed disabled:bg-zinc-400`}
+        className={`bg-black text-white font-semibold rounded-lg w-[200px] h-[40px] disabled:cursor-not-allowed disabled:bg-zinc-400 flex items-center justify-center`}
       >
-        Get insights
+        {!showSpinner ? (
+            <h1>Get insights</h1>
+          ) : (
+            <Image
+              alt=""
+              width={24}
+              height={24}
+              src={"/spinner.svg"}
+              className="animate-spin"
+            />
+          )}
       </button>
       {data && (
-        <ul>
-          <h1>Order & Payment Received:{data?.opr_transactions.length}</h1>
-          <h1>Payment Pending:{data?.pending_transactions.length}</h1>
-          <h1>Return:{data?.return_transactions.length}</h1>
-          <h1>Negative Payout:{data?.negative_transactions.length}</h1>
-          <h1>
-            Order Not Applicable but Payment Received:
-            {data?.ona_transactions.length}
-          </h1>
+        <div className="w-full flex items-center justify-center ">
+          <div className=" flex flex-col items-start justify-center  w-[90%]">
+            <div className="flex flex-row items-center justify-start p-[24px] flex-wrap ">
+              {labels.map((item, index) => {
+                return <Card item={item} key={index} />;
+              })}
+            </div>
 
-          <h1>Blank Summaries:{data?.blank_summaries.length}</h1>
-          <h1>Transaction Summaries:{data?.transaction_summaries.length}</h1>
-        </ul>
+            <div className="w-[680px] h-fit border ml-[48px] rounded-lg p-[32px] flex flex-col gap-[24px]">
+              <h1 className="font-semibold text-xl">
+                Reimbursements by Dispute Type - Alltime
+              </h1>
+              <div className="flex flex-col gap-[4px]" >
+                {data.blank_summaries.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="flex flex-row items-center justify-between"
+                    >
+                      <h1 className="">{item.P_Description}</h1>
+                      <h1 className="font-light" >{item.SumNetAmt}</h1>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
       )}
+      {
+        !data&&<h1 className="mt-[48px] text-3xl" >Your insights will appear here.</h1>
+      }
+    </div>
+  );
+};
+
+interface CardProps {
+  item: {
+    label: string;
+    value: number | undefined | null;
+  };
+}
+
+const Card: React.FC<CardProps> = ({ item }) => {
+  return (
+    <div className="flex items-center justify-between px-[12px] py-[18px] w-[360px] h-[100px] border rounded-lg m-[24px]">
+      <div className="flex flex-col h-full justify-between ">
+        <h1 className="text-sm font-semibold">{item.label}</h1>
+        <h1 className="text-2xl font-semibold">{item.value}</h1>
+      </div>
+      <Image alt="" width={24} height={24} src={"/arrow.svg"} />
     </div>
   );
 };
