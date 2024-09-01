@@ -25,7 +25,7 @@ export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
   const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
   const handleClick = async () => {
-    setShowSpinner(true)
+    setShowSpinner(true);
     try {
       const res = await fetch(`${BASE_URL}/get_processed_data`, {
         method: "POST",
@@ -36,14 +36,12 @@ export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
         body: JSON.stringify({ id: uploadSessionId }),
       });
 
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
       const data: InsightsResType = await res.json();
-      setShowSpinner(false)
-      setData(data);
-      console.log(data);
+      if (data) {
+        setShowSpinner(false);
+        setData(data);
+        console.log(data);
+      }
     } catch (error) {
       console.error("An error occurred while fetching data:", error);
     }
@@ -68,16 +66,16 @@ export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
         className={`bg-black text-white font-semibold rounded-lg w-[200px] h-[40px] disabled:cursor-not-allowed disabled:bg-zinc-400 flex items-center justify-center`}
       >
         {!showSpinner ? (
-            <h1>Get insights</h1>
-          ) : (
-            <Image
-              alt=""
-              width={24}
-              height={24}
-              src={"/spinner.svg"}
-              className="animate-spin"
-            />
-          )}
+          <h1>Get insights</h1>
+        ) : (
+          <Image
+            alt=""
+            width={24}
+            height={24}
+            src={"/spinner.svg"}
+            className="animate-spin"
+          />
+        )}
       </button>
       {data && (
         <div className="w-full flex items-center justify-center ">
@@ -92,7 +90,7 @@ export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
               <h1 className="font-semibold text-xl">
                 Reimbursements by Dispute Type - Alltime
               </h1>
-              <div className="flex flex-col gap-[4px]" >
+              <div className="flex flex-col gap-[4px]">
                 {data.blank_summaries.map((item, index) => {
                   return (
                     <div
@@ -100,7 +98,7 @@ export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
                       className="flex flex-row items-center justify-between"
                     >
                       <h1 className="">{item.P_Description}</h1>
-                      <h1 className="font-light" >{item.SumNetAmt}</h1>
+                      <h1 className="font-light">{item.SumNetAmt}</h1>
                     </div>
                   );
                 })}
@@ -109,9 +107,9 @@ export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
           </div>
         </div>
       )}
-      {
-        !data&&<h1 className="mt-[48px] text-3xl" >Your insights will appear here.</h1>
-      }
+      {!data && (
+        <h1 className="mt-[48px] text-3xl">Your insights will appear here.</h1>
+      )}
     </div>
   );
 };
