@@ -10,7 +10,6 @@ logging.basicConfig(
     level=logging.INFO, 
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  
     handlers=[
-        logging.StreamHandler(),
         logging.FileHandler("app.log")
     ]
 )
@@ -132,20 +131,42 @@ def filter_and_summarize(merged_df):
     try:
         logger.info("Filtering out rows with blank Order Ids in Merged Dataset to create a df.")
         blank_transaction_df = merged_df[merged_df['Order Id'].isna() | (merged_df['Order Id'] == '')]
-        blank_transaction_summary_df = blank_transaction_df.groupby('P_Description')['Net Amount'].sum().reset_index()
+        
+        required_descriptions = [
+            'Cost of Advertising',
+            'FBA Inbound Pickup Service',
+            'FBA Inventory Reimbursement - Customer Return',
+            'FBA Inventory Reimbursement - Customer Service Issue',
+            'FBA Inventory Reimbursement - Damaged:Warehouse',
+            'FBA Inventory Reimbursement - Fee Correction',
+            'FBA Inventory Reimbursement - Lost:Inbound',
+            'FBA Inventory Storage Fee'
+        ]
+        
+        blank_transaction_summary_df = pd.DataFrame({'P_Description': required_descriptions})
+        summary = blank_transaction_df.groupby('P_Description')['Net Amount'].sum().reset_index()
+        blank_transaction_summary_df = blank_transaction_summary_df.merge(
+            summary, on='P_Description', how='left'
+        ).fillna(0)
+        
         blank_transaction_summary_df = blank_transaction_summary_df.rename(columns={'Net Amount': 'SUM of Net Amount'})
+        
         logger.info("Created Blank Transaction Summary:\n")
         logger.info(blank_transaction_summary_df)
+        
         return blank_transaction_df, blank_transaction_summary_df
     except Exception as e:
-        logger.error(f"MTR: Error occured while filtering and summarizing the Merged Dataset - {str(e)}")
-        return
+        logger.error(f"MTR: Error occurred while filtering and summarizing the Merged Dataset - {str(e)}")
+        return None, None
 
 def group_and_categorize_by_order_id(merged_df):
     try:
         grouped = merged_df.groupby(['Order Id', 'Transaction Type']).agg({
-            'Invoice Amount': 'sum',
-            'Net Amount': 'sum'
+        'Invoice Amount': 'sum',
+        'Net Amount': 'sum',
+        'P_Description':'first',
+        'Order Date':'first',
+        'Payment Date':'first'
         }).reset_index()
         
         pivoted = grouped.pivot(index='Order Id', 
@@ -154,7 +175,7 @@ def group_and_categorize_by_order_id(merged_df):
         pivoted.columns = [f'{col[1]}_{col[0]}' for col in pivoted.columns]
         pivoted = pivoted.reset_index()
         logger.info("Grouped the Merged Dataset by Order Id.")
-        return pivoted
+        return grouped, pivoted
     except Exception as e:
         logger.error(f"MTR: Error occured while categorizing the Merged Dataset by Order Id - {str(e)}")
         return

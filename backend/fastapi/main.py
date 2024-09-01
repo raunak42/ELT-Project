@@ -14,7 +14,6 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.StreamHandler(),
         logging.FileHandler("app.log")
     ]
 )
@@ -49,8 +48,8 @@ async def upload_files(
     try:
         merged_df = await process_and_merge_datasets(mtrFile, prsFile)        
         blank_transaction_df, blank_transaction_summary_df = filter_and_summarize(merged_df)
-        grouped_df = group_and_categorize_by_order_id(merged_df)
-        categorized_df, categorized_value_counts_df = create_markings(grouped_df)
+        grouped_df, pivoted_df = group_and_categorize_by_order_id(merged_df)
+        categorized_df, categorized_value_counts_df = create_markings(pivoted_df)
     except Exception as e:
         logger.error(f"An error occured while processing the data - {str(e)}")
     
@@ -64,6 +63,22 @@ async def upload_files(
         await prisma.connect()
         logger.info("Storing the processed data into database ...")
         upload_session = await prisma.uploadsession.create({})
+        
+        grouped_df_data = [
+            {
+                "Order_Id": safe_str(record.get("Order Id")),
+                "Transaction_Type": safe_str(record.get("Transaction Type")),
+                "Payment_Type": safe_str(record.get("Payment Type")),
+                "Invoice_Amt": safe_str(record.get("Invoice Amount")),
+                "Net_Amt": safe_str(record.get("Net Amount")),
+                "P_Description": safe_str(record.get("P_Description")),
+                "Order_Date": safe_str(record.get("Order Date")),
+                "Payment_Date": safe_str(record.get("Payment Date")),
+                "Source": safe_str(record.get("Source")),
+                "uploadSessionId": upload_session.id
+            }
+            for record in grouped_df.to_dict(orient='records')
+        ]
         
         blank_transaction_data = [
             {
@@ -113,7 +128,8 @@ async def upload_files(
             }
             for record in categorized_value_counts_df.to_dict(orient='records')
         ]
-
+        
+        await prisma.groupedtransaction.create_many(data=grouped_df_data)
         await prisma.blankorderidtransaction.create_many(data=blank_transaction_data)
         await prisma.blanktransactionsummary.create_many(data=blank_summary_data)
         await prisma.categorizedtransaction.create_many(data=categorized_data)
@@ -189,6 +205,11 @@ async def get_processed_data(upload_session:Upload_Session):
                 "uploadSessionId": upload_session_id,
             }
         )
+        grouped_transactions = await prisma.groupedtransaction.find_many(
+            where={
+                "uploadSessionId": upload_session_id,   
+            }
+        )
         logger.info("Data succesfully fetched from the daatabase.")
        
         
@@ -200,7 +221,8 @@ async def get_processed_data(upload_session:Upload_Session):
                 "ona_transactions": ona_transactions,
                 "pending_transactions": pending_transactions,
                 "blank_summaries": blank_summaries,
-                "transaction_summaries": transaction_summaries
+                "transaction_summaries": transaction_summaries,
+                "grouped_transactions":grouped_transactions
             }
         
 
