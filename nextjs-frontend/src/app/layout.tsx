@@ -16,7 +16,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="w-full h-[100px] border-b flex items-center justify-center fixed top-0 bg-white shadow-sm">
+          <h1 className="text-base font-semibold">Dashboard</h1>
+        </div>
+        <div className="h-full w-[70px] border-r fixed left-0 bg-white"></div>
+        <div className="mt-[100px]" > {children}</div>
+      </body>
     </html>
   );
 }
