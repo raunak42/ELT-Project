@@ -13,12 +13,13 @@ echo "Installing python dependencies..."
 cd fastapi
 pip install -r requirements.txt
 pip cache purge
+cd db
 python3 -m prisma generate
 pm2 delete fastapi-server || true
 pm2 start main.py --name fastapi-server --interpreter python3
 
 echo "Deploying frontend..."
-cd ../../nextjs-frontend
+cd ../../../nextjs-frontend
 npm install
 npm run build
 pm2 delete nextjs-frontend || true
