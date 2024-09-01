@@ -16,6 +16,7 @@ Look into the above mentioned files for more detials.
 4. Frontend can be made prettier.
 5. Page for displaying rows of individual order-details for categories has not been created yet. The api and data fetching logic is ready to handle this frontend requirement.
 6. Responsiveness not suitable enough for handheld devices yet.
+7. Sending processed data from the backend to the frontend takes some time due to large number of rows and multiple such arrays, need to figure that out.
 
 ## Database Schema
 
