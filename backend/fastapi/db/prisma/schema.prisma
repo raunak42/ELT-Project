@@ -4,9 +4,24 @@ generator client {
   recursive_type_depth = "5"
 }
 
-datasource db { 
+datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model GroupedTransaction {
+  id               Int            @id @default(autoincrement())
+  Order_Id         String?
+  Transaction_Type String?
+  Payment_Type     String?
+  Invoice_Amt      String?
+  Net_Amt          String?
+  P_Description    String?
+  Order_Date       String?
+  Payment_Date     String?
+  Source           String?
+  uploadSessionId  Int?
+  UploadSession    UploadSession? @relation(fields: [uploadSessionId], references: [id], onDelete: Cascade)
 }
 
 model BlankOrderIdTransaction {
@@ -60,4 +75,5 @@ model UploadSession {
   BlankTransactionSummaries BlankTransactionSummary[]
   CategorizedTransactions   CategorizedTransaction[]
   TransactionSummaries      TransactionSummary[]
+  GroupedTransaction        GroupedTransaction[]
 }
