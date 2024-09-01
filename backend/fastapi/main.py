@@ -1,7 +1,7 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from helpers import greet, process_and_merge_datasets, filter_and_summarize, group_and_categorize_by_order_id, create_markings
+from helpers import process_and_merge_datasets, filter_and_summarize, group_and_categorize_by_order_id, create_markings
 import logging
 import os
 from prisma import Prisma
@@ -19,6 +19,8 @@ logging.basicConfig(
     ]
 )
 app = FastAPI()
+prisma = Prisma()
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -32,14 +34,6 @@ app.add_middleware(
 def health_check():
     return 'Health check complete'
 
-class User(BaseModel):
-    user_name: str
-
-@app.post('/hello')
-def hello(user: User):
-    greeting = greet()
-    return {"message": f"Request received from user {user.user_name} {greeting}"}
-
 def safe_str(value: Any) -> str:
     """Convert value to string, or return None if value is NaN or None."""
     if pd.isna(value) or value is None:
@@ -51,27 +45,26 @@ async def upload_files(
     mtrFile: UploadFile = File(...),
     prsFile: UploadFile = File(...)
 ):
-    prisma = Prisma()
-    await prisma.connect()
-
+    os.makedirs('processed_data', exist_ok=True)
     try:
-        os.makedirs('processed_data', exist_ok=True)
-        merged_df = await process_and_merge_datasets(mtrFile, prsFile)
-        
+        merged_df = await process_and_merge_datasets(mtrFile, prsFile)        
         blank_transaction_df, blank_transaction_summary_df = filter_and_summarize(merged_df)
         grouped_df = group_and_categorize_by_order_id(merged_df)
         categorized_df, categorized_value_counts_df = create_markings(grouped_df)
-        
-        # To view these dataframes in excel format.
-        # merged_df.to_excel(os.path.join('.','processed_data','Merged_Dataset.xlsx'),index=False)
-        # blank_transaction_df.to_excel(os.path.join('.','processed_data','Blank_Order_Id_Transactions.xlsx'), index=False)
-        # blank_transaction_summary_df.to_excel(os.path.join('.','processed_data','Blank_Transaction_Summary.xlsx'), index=False)
-        # categorized_df.to_excel(os.path.join('.','processed_data','Categorized_Transaction_Record.xlsx'), index=False)
-        # categorized_value_counts_df.to_excel(os.path.join('.','processed_data','Transaction_Summary.xlsx'), index=False)
-        
+    except Exception as e:
+        logger.error(f"An error occured while processing the data - {str(e)}")
+    
+    # To view these dataframes in excel format.
+    # merged_df.to_excel(os.path.join('.','processed_data','Merged_Dataset.xlsx'),index=False)
+    # blank_transaction_df.to_excel(os.path.join('.','processed_data','Blank_Order_Id_Transactions.xlsx'), index=False)
+    # blank_transaction_summary_df.to_excel(os.path.join('.','processed_data','Blank_Transaction_Summary.xlsx'), index=False)
+    # categorized_df.to_excel(os.path.join('.','processed_data','Categorized_Transaction_Record.xlsx'), index=False)
+    # categorized_value_counts_df.to_excel(os.path.join('.','processed_data','Transaction_Summary.xlsx'), index=False)
+    try:    
+        await prisma.connect()
+        logger.info("Storing the processed data into database ...")
         upload_session = await prisma.uploadsession.create({})
         
-        # Prepare data for bulk insert
         blank_transaction_data = [
             {
                 "Order_Id": safe_str(record.get("Order Id")),
@@ -121,17 +114,16 @@ async def upload_files(
             for record in categorized_value_counts_df.to_dict(orient='records')
         ]
 
-        # Perform bulk inserts
         await prisma.blankorderidtransaction.create_many(data=blank_transaction_data)
         await prisma.blanktransactionsummary.create_many(data=blank_summary_data)
         await prisma.categorizedtransaction.create_many(data=categorized_data)
         await prisma.transactionsummary.create_many(data=summary_data)
-        
-        return {"message": "Files processed and saved successfully.", "uploadSessionId": upload_session.id}
+        logger.info("Data successfully stored in the database.")
+        return {"message": "Files processed and saved successfully to the database.", "uploadSessionId": upload_session.id}
     
     except Exception as e:
-        logger.error(f"Error occurred while saving data: {str(e)}")
-        return {"error": "An error occurred while processing and saving the data."}
+        logger.error(f"Error occurred while saving data to the database, check your network connection: {str(e)}")
+        return {"error": "Error occurred while saving data to the database"}
     
     finally:
         await prisma.disconnect()
@@ -141,12 +133,10 @@ class Upload_Session(BaseModel):
         
 @app.post("/get_processed_data")
 async def get_processed_data(upload_session:Upload_Session):
-    prisma = Prisma()
-    await prisma.connect()
-    
     upload_session_id = upload_session.id
-    
+    logger.info("Fetching data from the database ...")
     try:
+        await prisma.connect()
         removal_transactions = await prisma.categorizedtransaction.find_many(
             where={
                 "uploadSessionId": upload_session_id,
@@ -199,7 +189,7 @@ async def get_processed_data(upload_session:Upload_Session):
                 "uploadSessionId": upload_session_id,
             }
         )
-        
+        logger.info("Data succesfully fetched from the daatabase.")
        
         
         return {
@@ -216,8 +206,8 @@ async def get_processed_data(upload_session:Upload_Session):
 
         
     except Exception as e:
-        logger.error(f"Error occurred while saving data: {str(e)}")
-        return {"error": "An error occurred while processing and saving the data."}
+        logger.error(f"Error occurred while fetching from the database, check your network connection: {str(e)}")
+        return {"error": "An error occurred while fetching from the database."}
     
     finally:
         await prisma.disconnect()
