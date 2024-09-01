@@ -1,7 +1,8 @@
+import { BASE_URL } from "@/lib/constants";
 import MainContent from "./components/FileUpload";
 
 export default async function Home() {
-  const res = await fetch("http://0.0.0.0:8000", {
+  const res = await fetch(`${BASE_URL}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

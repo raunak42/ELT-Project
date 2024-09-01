@@ -2,6 +2,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { Insights } from "./Insights";
 import Image from "next/image";
+import { BASE_URL } from "@/lib/constants";
 
 export default function MainContent() {
   const [mtrFile, setMtrFile] = useState<File | null>(null);
@@ -24,7 +25,7 @@ export default function MainContent() {
 
     try {
       setStatus("Uploading...");
-      const res = await fetch("http://localhost:8000/upload", {
+      const res = await fetch(`${BASE_URL}/upload`, {
         method: "POST",
         body: formData,
         cache: "no-store",

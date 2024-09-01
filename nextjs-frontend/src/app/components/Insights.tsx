@@ -1,5 +1,6 @@
 "use client";
 
+import { BASE_URL } from "@/lib/constants";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -26,7 +27,7 @@ export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
   const handleClick = async () => {
     setShowSpinner(true)
     try {
-      const res = await fetch("http://localhost:8000/get_processed_data", {
+      const res = await fetch(`${BASE_URL}/get_processed_data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
