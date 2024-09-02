@@ -16,5 +16,4 @@ pip cache purge
 cd db
 python3 -m prisma generate
 cd ..
-fastapi run main.py
-
+uvicorn main:app --reload
