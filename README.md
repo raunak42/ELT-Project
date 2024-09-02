@@ -2,8 +2,11 @@
 
 ## Run Locally:
 
-1. run `bash run_api_dev.sh`
-2. on a separate terminal, run `bash run_frontend_dev.sh`
+1. cd backend/fastapi
+2. cp .env.example .env
+3. populate the .env file with your postgres database url
+4. run `bash run_api_dev.sh`
+5. on a separate terminal, run `bash run_frontend_dev.sh`
 
 Now fastapi server is running on port 8000 and nextjs server on port 3000.
 Look into the above mentioned files for more detials.
