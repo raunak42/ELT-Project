@@ -9,15 +9,15 @@ interface InsightsProps {
 }
 
 interface InsightsResType {
-  removal_transactions: any[];
-  return_transactions: any[];
-  negative_transactions: any[];
-  opr_transactions: any[];
-  ona_transactions: any[];
-  pending_transactions: any[];
+  removal_transactions_count: number;
+  return_transactions_count: number;
+  negative_transactions_count: number;
+  opr_transactions_count: number;
+  ona_transactions_count: number;
+  pending_transactions_count: number;
   blank_summaries: any[];
-  transaction_summaries: any[];
-  grouped_transactions: any[];
+  // transaction_summaries: any[];
+  // grouped_transactions: any[];
 }
 
 export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
@@ -48,13 +48,13 @@ export const Insights: React.FC<InsightsProps> = ({ uploadSessionId }) => {
   };
 
   const labels = [
-    { label: "Order & Payment Received", value: data?.opr_transactions.length },
-    { label: "Payment Pending", value: data?.pending_transactions.length },
-    { label: "Return", value: data?.return_transactions.length },
-    { label: "Negative Payout", value: data?.negative_transactions.length },
+    { label: "Order & Payment Received", value: data?.opr_transactions_count },
+    { label: "Payment Pending", value: data?.pending_transactions_count },
+    { label: "Return", value: data?.return_transactions_count },
+    { label: "Negative Payout", value: data?.negative_transactions_count },
     {
       label: "Order Not Applicable but Payment Received",
-      value: data?.ona_transactions.length,
+      value: data?.ona_transactions_count,
     },
   ];
 

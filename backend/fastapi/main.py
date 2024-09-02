@@ -153,42 +153,42 @@ async def get_processed_data(upload_session:Upload_Session):
     logger.info("Fetching data from the database ...")
     try:
         await prisma.connect()
-        removal_transactions = await prisma.categorizedtransaction.find_many(
+        removal_transactions_count = await prisma.categorizedtransaction.count(
             where={
                 "uploadSessionId": upload_session_id,
                 "Category":"Removal Order IDs"
             }
         ) 
         
-        return_transactions = await prisma.categorizedtransaction.find_many(
+        return_transactions_count = await prisma.categorizedtransaction.count(
             where={
                 "uploadSessionId": upload_session_id,
                 "Category":"Return"
             }
         )
                 
-        negative_transactions = await prisma.categorizedtransaction.find_many(
+        negative_transactions_count = await prisma.categorizedtransaction.count(
             where={
                 "uploadSessionId": upload_session_id,
                 "Category":"Negative Payout"
             }
         )
         
-        opr_transactions = await prisma.categorizedtransaction.find_many(
+        opr_transactions_count = await prisma.categorizedtransaction.count(
             where={
                 "uploadSessionId": upload_session_id,
                 "Category":"Order & Payment Received"
             }
         )
         
-        ona_transactions = await prisma.categorizedtransaction.find_many(
+        ona_transactions_count = await prisma.categorizedtransaction.count(
             where={
                 "uploadSessionId": upload_session_id,
                 "Category":"Order Not Applicable but Payment Received"
             }
         )
         
-        pending_transactions = await prisma.categorizedtransaction.find_many(
+        pending_transactions_count = await prisma.categorizedtransaction.count(
             where={
                 "uploadSessionId": upload_session_id,
                 "Category":"Payment Pending"
@@ -200,29 +200,31 @@ async def get_processed_data(upload_session:Upload_Session):
                 "uploadSessionId": upload_session_id,
             }
         )
-        transaction_summaries = await prisma.transactionsummary.find_many(
-            where={
-                "uploadSessionId": upload_session_id,
-            }
-        )
-        grouped_transactions = await prisma.groupedtransaction.find_many(
-            where={
-                "uploadSessionId": upload_session_id,   
-            }
-        )
-        logger.info("Data succesfully fetched from the daatabase.")
+        # transaction_summaries = await prisma.transactionsummary.find_many(
+        #     where={
+        #         "uploadSessionId": upload_session_id,
+        #     }
+        # )
+        # grouped_transactions = await prisma.groupedtransaction.find_many(
+        #     where={
+        #         "uploadSessionId": upload_session_id,   
+        #     }
+        # )
+        
+        
+        logger.info("Data succesfully fetched from the database.")
        
         
         return {
-                "removal_transactions": removal_transactions,
-                "return_transactions": return_transactions,
-                "negative_transactions": negative_transactions,
-                "opr_transactions": opr_transactions,
-                "ona_transactions": ona_transactions,
-                "pending_transactions": pending_transactions,
+                "removal_transactions_count": removal_transactions_count,
+                "return_transactions_count": return_transactions_count,
+                "negative_transactions_count": negative_transactions_count,
+                "opr_transactions_count": opr_transactions_count,
+                "ona_transactions_count": ona_transactions_count,
+                "pending_transactions_count": pending_transactions_count,
                 "blank_summaries": blank_summaries,
-                "transaction_summaries": transaction_summaries,
-                "grouped_transactions":grouped_transactions
+                # "transaction_summaries": transaction_summaries,
+                # "grouped_transactions":grouped_transactions
             }
         
 
