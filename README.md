@@ -2,8 +2,8 @@
 
 ## Run Locally:
 
-1. run `bash deploy_local_api.sh`
-2. on a separate terminal, run `bash deploy_local_frontend.sh`
+1. run `bash run_api_dev.sh`
+2. on a separate terminal, run `bash run_frontend_dev.sh`
 
 Now fastapi server is running on port 8000 and nextjs server on port 3000.
 Look into the above mentioned files for more detials.
